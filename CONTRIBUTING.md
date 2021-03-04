@@ -9,6 +9,12 @@ Reading and following these guidelines will help us make the contribution proces
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
 
+## Note on Approved Licenses & Docs
+
+We MAY NOT change which licenses we approve as this is core / internal to ShopRunner. If you would like to add a way to customize that functionality we would be willing to accept it.
+
+Docs we set MAY NOT be updated/changed as this is our own internal standard. If you would like to add a way to customize that functionality we would be willing to accept it.
+
 ## Code of Conduct
 
 We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](/CODE-OF-CONDUCT.md).
