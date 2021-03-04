@@ -1,0 +1,64 @@
+{
+  "name": "action-oss",
+  "version": "1.0.0",
+  "description": "Open Source Software scanning tool. Used to scan OSS from ShopRunner for compliance with OSS policies.",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc && copyfiles -u 2 src/templates/**/* dist/templates",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "package": "ncc build --source-map --license LICENSE",
+    "test": "jest --passWithNoTests",
+    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)"
+    ],
+    "testPathIgnorePatterns": [
+      "dist"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShopRunner/action-oss.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ShopRunner/action-oss/issues"
+  },
+  "homepage": "https://github.com/ShopRunner/action-oss#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "@vercel/ncc": "^0.27.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^7.21.0",
+    "eslint-config-semistandard": "^15.0.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.2"
+  }
+}

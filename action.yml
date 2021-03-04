@@ -1,0 +1,5 @@
+name: actions-oss
+description: Open Source Software scanning tool. Used to scan OSS from ShopRunner for compliance with OSS policies.
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
