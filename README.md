@@ -1,6 +1,6 @@
 # action-oss
 
-[![CI](https://github.com/ShopRunner/action-oss/actions/workflows/ci.yaml/badge.svg)](https://github.com/ShopRunner/action-oss/actions/workflows/ci.yaml)
+[![CI & OSS Compliant](https://github.com/ShopRunner/action-oss/actions/workflows/ci.yaml/badge.svg)](https://github.com/ShopRunner/action-oss/actions/workflows/ci.yaml)
 
 Open Source Software scanning Github Action. Used to scan the tools that we Open Source for compliance with ShopRunner OSS policies. 
 
