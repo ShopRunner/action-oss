@@ -9,6 +9,10 @@ Reading and following these guidelines will help us make the contribution proces
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
 
+## Note on Editing Licenses List & Standard Documentation
+
+Please do not change the license or Code of Conduct as part of a pull request. We will not approve pull requests that involve changes to those files. If you would like to add a way to customize that functionality (but allow us to maintain our core standards) we would be willing to accept it.
+
 ## Code of Conduct
 
 We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](/CODE-OF-CONDUCT.md).
