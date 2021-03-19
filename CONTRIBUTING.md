@@ -9,11 +9,9 @@ Reading and following these guidelines will help us make the contribution proces
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
 
-## Note on Approved Licenses & Docs
+## Note on Editing Licenses List & Standard Documentation
 
-We MAY NOT change which licenses we approve as this is core / internal to ShopRunner. If you would like to add a way to customize that functionality we would be willing to accept it.
-
-Docs we set MAY NOT be updated/changed as this is our own internal standard. If you would like to add a way to customize that functionality we would be willing to accept it.
+Please do not change the license or Code of Conduct as part of a pull request. We will not approve pull requests that involve changes to those files. If you would like to add a way to customize that functionality (but allow us to maintain our core standards) we would be willing to accept it.
 
 ## Code of Conduct
 
