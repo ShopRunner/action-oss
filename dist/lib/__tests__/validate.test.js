@@ -27,17 +27,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 const approvedLicenses = template_1.getApprovedLicenseListSync();
 describe('validateLicense', () => {
     it('fails if invalid Copy Right', async () => {
-        const result = await validate_1.validateLicense(invalidCopyRight);
+        const result = await validate_1.validateLicense(Buffer.from(invalidCopyRight));
         expect(result.valid).toEqual(false);
     });
     it('fails if invalid License Type (BSD-1-Clause)', async () => {
-        const result = await validate_1.validateLicense(BSD_1_Clause);
+        const result = await validate_1.validateLicense(Buffer.from(BSD_1_Clause));
         expect(result.valid).toEqual(false);
     });
     approvedLicenses.forEach((approvedLicense) => {
         it(`passes if valid license, case: ${approvedLicense}`, async () => {
             const generatedLicense = await template_1.generateLicense((new Date()).getFullYear().toString(), approvedLicense);
-            const result = await validate_1.validateLicense(generatedLicense);
+            const result = await validate_1.validateLicense(Buffer.from(generatedLicense));
             expect(result.valid).toEqual(true);
         });
     });

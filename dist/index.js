@@ -70,6 +70,16 @@ exports.validateDocFiles = exports.validateCodeOfConduct = exports.validateLicen
 const path = __nccwpck_require__(622);
 const template_1 = __nccwpck_require__(438);
 const fs_1 = __nccwpck_require__(795);
+// Utils
+// -------
+async function readFileAsyncSafe(path) {
+    try {
+        return await fs_1.readFileAsync(path);
+    }
+    catch (err) {
+        // force to void
+    }
+}
 // License
 // -------
 function getMatchedYear(file) {
@@ -110,25 +120,29 @@ async function validateLicenseAllowed(file) {
     };
 }
 async function validateLicense(fileContents) {
-    const resultAllowed = await validateLicenseAllowed(fileContents);
-    const resultCopyright = await validateLicenseCopyright(fileContents);
+    const parsedFileContents = fileContents ? fileContents.toString() : '';
+    const resultAllowed = await validateLicenseAllowed(parsedFileContents);
+    const resultCopyright = await validateLicenseCopyright(parsedFileContents);
     const errors = [];
-    if (!resultAllowed.valid) {
+    if (!parsedFileContents) {
+        errors.push('Could not find the LICENSE file, must be one of "LICENSE" in the root directory');
+    }
+    if (parsedFileContents && !resultAllowed.valid) {
         errors.push('This is not a recognized license.');
     }
-    if (!resultCopyright.valid) {
+    if (parsedFileContents && !resultCopyright.valid) {
         errors.push('There is no valid Copy Right Year.');
     }
     return {
         ...resultAllowed,
         ...resultCopyright,
-        valid: resultAllowed.valid && resultCopyright.valid,
+        valid: parsedFileContents && resultAllowed.valid && resultCopyright.valid,
         errors
     };
 }
 exports.validateLicense = validateLicense;
 async function validateLicenseFile(path) {
-    const file = (await fs_1.readFileAsync(path)).toString();
+    const file = await readFileAsyncSafe(path);
     return await validateLicense(file);
 }
 exports.validateLicenseFile = validateLicenseFile;
@@ -146,14 +160,6 @@ async function validateCodeOfConduct(file) {
     };
 }
 exports.validateCodeOfConduct = validateCodeOfConduct;
-async function readFileAsyncSafe(path) {
-    try {
-        return await fs_1.readFileAsync(path);
-    }
-    catch (err) {
-        // force to void
-    }
-}
 async function validateDocFiles(rootPath) {
     var _a;
     const errors = [];
