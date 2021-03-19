@@ -3,6 +3,17 @@ import * as path from 'path';
 import { generateCodeOfConduct, generateLicense, getApprovedLicenseList } from './template';
 import { readFileAsync } from './fs';
 
+// Utils
+// -------
+
+async function readFileAsyncSafe (path: string) {
+  try {
+    return await readFileAsync(path);
+  } catch (err) {
+    // force to void
+  }
+}
+
 // License
 // -------
 
@@ -51,29 +62,34 @@ async function validateLicenseAllowed (file: string): Promise<{ valid: boolean, 
   };
 }
 
-export async function validateLicense (fileContents: string) {
-  const resultAllowed = await validateLicenseAllowed(fileContents);
-  const resultCopyright = await validateLicenseCopyright(fileContents);
+export async function validateLicense (fileContents?: Buffer) {
+  const parsedFileContents = fileContents ? fileContents.toString() : '';
+  const resultAllowed = await validateLicenseAllowed(parsedFileContents);
+  const resultCopyright = await validateLicenseCopyright(parsedFileContents);
   const errors: string[] = [];
 
-  if (!resultAllowed.valid) {
+  if (!parsedFileContents) {
+    errors.push('Could not find the LICENSE file, must be one of "LICENSE" in the root directory');
+  }
+
+  if (parsedFileContents && !resultAllowed.valid) {
     errors.push('This is not a recognized license.');
   }
 
-  if (!resultCopyright.valid) {
+  if (parsedFileContents && !resultCopyright.valid) {
     errors.push('There is no valid Copy Right Year.');
   }
 
   return {
     ...resultAllowed,
     ...resultCopyright,
-    valid: resultAllowed.valid && resultCopyright.valid,
+    valid: parsedFileContents && resultAllowed.valid && resultCopyright.valid,
     errors
   };
 }
 
 export async function validateLicenseFile (path: string) {
-  const file = (await readFileAsync(path)).toString();
+  const file = await readFileAsyncSafe(path);
   return await validateLicense(file);
 }
 
@@ -91,14 +107,6 @@ export async function validateCodeOfConduct (file?: string) {
   return {
     valid: file && file === templateFile
   };
-}
-
-async function readFileAsyncSafe (path: string) {
-  try {
-    return await readFileAsync(path);
-  } catch (err) {
-    // force to void
-  }
 }
 
 export async function validateDocFiles (rootPath: string) {
