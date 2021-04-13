@@ -176,7 +176,7 @@ async function validateDocFiles(rootPath) {
     const featureTemplateValid = await readFileAsyncSafe(path.join(rootPath, '.github', 'ISSUE_TEMPLATE', 'feature_report.md'));
     if (!codeOfConductResult.valid) {
         if (codeOfConduct) {
-            errors.push(`The CODE-OF-CONDUCT.md is invalid: ${codeOfConductResult.diff}`);
+            errors.push(`The CODE-OF-CONDUCT.md is invalid: \n ${codeOfConductResult.diff}`);
         }
         else {
             errors.push('The CODE-OF-CONDUCT.md is missing.');
@@ -218,8 +218,11 @@ async function run() {
     const docResults = await validate_1.validateDocFiles(process.cwd());
     if (!licenseResults.valid || !docResults.valid) {
         core.setFailed(`Failed OSS Compliance Check
+    
 -------
-${[...licenseResults.errors, ...docResults.errors].map((err) => `ERROR: ${err}`).join('\n\n')}
+${[...licenseResults.errors, ...docResults.errors]
+            .map(err => `ERROR: ${err}`)
+            .join('\n\n')}
     `);
     }
 }

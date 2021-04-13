@@ -107,7 +107,7 @@ async function validateDocFiles(rootPath) {
     const featureTemplateValid = await readFileAsyncSafe(path.join(rootPath, '.github', 'ISSUE_TEMPLATE', 'feature_report.md'));
     if (!codeOfConductResult.valid) {
         if (codeOfConduct) {
-            errors.push(`The CODE-OF-CONDUCT.md is invalid: ${codeOfConductResult.diff}`);
+            errors.push(`The CODE-OF-CONDUCT.md is invalid: \n ${codeOfConductResult.diff}`);
         }
         else {
             errors.push('The CODE-OF-CONDUCT.md is missing.');

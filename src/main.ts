@@ -10,8 +10,11 @@ async function run() {
 
   if (!licenseResults.valid || !docResults.valid) {
     core.setFailed(`Failed OSS Compliance Check
+    
 -------
-${[...licenseResults.errors, ...docResults.errors].map((err) => `ERROR: ${err}`).join('\n\n')}
+${[...licenseResults.errors, ...docResults.errors]
+  .map(err => `ERROR: ${err}`)
+  .join('\n\n')}
     `);
   }
 }

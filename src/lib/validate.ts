@@ -122,7 +122,7 @@ export async function validateDocFiles (rootPath: string) {
 
   if (!codeOfConductResult.valid) {
     if (codeOfConduct) {
-      errors.push(`The CODE-OF-CONDUCT.md is invalid: ${codeOfConductResult.diff}`);
+      errors.push(`The CODE-OF-CONDUCT.md is invalid: \n ${codeOfConductResult.diff}`);
     } else {
       errors.push('The CODE-OF-CONDUCT.md is missing.');
     }
