@@ -9,7 +9,7 @@ Open Source Software scanning Github Action. Used to scan the tools that we Open
 You can add the action to a workflow below.
 
 ```yaml
-name: "CI"
+name: "Compliance"
 
 on:
   pull_request:
