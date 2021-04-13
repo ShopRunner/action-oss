@@ -9,7 +9,7 @@ async function run() {
   const docResults = await validateDocFiles(process.cwd());
 
   if (!licenseResults.valid || !docResults.valid) {
-    core.setFailed([...licenseResults.errors, ...docResults.errors].join(', '));
+    core.setFailed([...licenseResults.errors, ...docResults.errors].join('\n'));
   }
 }
 
