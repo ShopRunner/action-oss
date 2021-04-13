@@ -42,7 +42,7 @@ async function validateLicenseAllowed(file) {
         }
         if (fileYear) {
             const templateFile = await template_1.generateLicense(fileYear, lic);
-            valid = templateFile === file;
+            valid = templateFile.trim() === file.trim();
             // if valid we set as the license output
             if (valid) {
                 license = lic;

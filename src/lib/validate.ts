@@ -48,7 +48,7 @@ async function validateLicenseAllowed (file: string): Promise<{ valid: boolean, 
 
     if (fileYear) {
       const templateFile = await generateLicense(fileYear, lic);
-      valid = templateFile === file;
+      valid = templateFile.trim() === file.trim();
 
       // if valid we set as the license output
       if (valid) {
