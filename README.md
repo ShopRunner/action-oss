@@ -47,6 +47,8 @@ requirements.
 ## Gotchas
 
 - **CODE-OF-CONDUCT.md Sensitivity** - The linter is very sensitive, please copy the file verbatim (i.e. don't add whitespace or new lines)
+- **Case sensitivty**
+- **LICENSE file extension**
 
 ## Attribution
 
