@@ -13,6 +13,7 @@ export declare function validateLicenseFile(path: string): Promise<{
 }>;
 export declare function validateCodeOfConduct(file?: string): Promise<{
     valid: boolean | "" | undefined;
+    diff: string | null;
 }>;
 export declare function validateDocFiles(rootPath: string): Promise<{
     valid: false | "" | Buffer | undefined;
