@@ -106,7 +106,7 @@ export async function validateCodeOfConduct (file?: string) {
   const maintainerEmail: string = getMatchedEmail(file || '') as string;
   const templateFile = await generateCodeOfConduct(maintainerEmail);
   return {
-    valid: file && file === templateFile,
+    valid: file && file.trim() === templateFile.trim(),
     diff: file ? diff(file, templateFile) : null
   };
 }
