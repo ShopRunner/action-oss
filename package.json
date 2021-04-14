@@ -39,7 +39,8 @@
   },
   "homepage": "https://github.com/ShopRunner/action-oss#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6"
+    "@actions/core": "^1.2.6",
+    "cli-diff": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",

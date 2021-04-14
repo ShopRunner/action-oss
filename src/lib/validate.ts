@@ -1,4 +1,5 @@
 import * as path from 'path';
+import diff from 'cli-diff';
 
 import { generateCodeOfConduct, generateLicense, getApprovedLicenseList } from './template';
 import { readFileAsync } from './fs';
@@ -47,7 +48,7 @@ async function validateLicenseAllowed (file: string): Promise<{ valid: boolean, 
 
     if (fileYear) {
       const templateFile = await generateLicense(fileYear, lic);
-      valid = templateFile === file;
+      valid = templateFile.trim() === file.trim();
 
       // if valid we set as the license output
       if (valid) {
@@ -105,7 +106,8 @@ export async function validateCodeOfConduct (file?: string) {
   const maintainerEmail: string = getMatchedEmail(file || '') as string;
   const templateFile = await generateCodeOfConduct(maintainerEmail);
   return {
-    valid: file && file === templateFile
+    valid: file && file.trim() === templateFile.trim(),
+    diff: file ? diff(file, templateFile) : null
   };
 }
 
@@ -119,7 +121,11 @@ export async function validateDocFiles (rootPath: string) {
   const featureTemplateValid = await readFileAsyncSafe(path.join(rootPath, '.github', 'ISSUE_TEMPLATE', 'feature_report.md'));
 
   if (!codeOfConductResult.valid) {
-    errors.push('The CODE-OF-CONDUCT.md is invalid or missing.');
+    if (codeOfConduct) {
+      errors.push(`The CODE-OF-CONDUCT.md is invalid: \n ${codeOfConductResult.diff}`);
+    } else {
+      errors.push('The CODE-OF-CONDUCT.md is missing.');
+    }
   }
 
   if (!contribValid) {

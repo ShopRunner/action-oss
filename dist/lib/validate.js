@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateDocFiles = exports.validateCodeOfConduct = exports.validateLicenseFile = exports.validateLicense = void 0;
 const path = require("path");
+const cli_diff_1 = require("cli-diff");
 const template_1 = require("./template");
 const fs_1 = require("./fs");
 // Utils
@@ -41,7 +42,7 @@ async function validateLicenseAllowed(file) {
         }
         if (fileYear) {
             const templateFile = await template_1.generateLicense(fileYear, lic);
-            valid = templateFile === file;
+            valid = templateFile.trim() === file.trim();
             // if valid we set as the license output
             if (valid) {
                 license = lic;
@@ -90,7 +91,8 @@ async function validateCodeOfConduct(file) {
     const maintainerEmail = getMatchedEmail(file || '');
     const templateFile = await template_1.generateCodeOfConduct(maintainerEmail);
     return {
-        valid: file && file === templateFile
+        valid: file && file.trim() === templateFile.trim(),
+        diff: file ? cli_diff_1.default(file, templateFile) : null
     };
 }
 exports.validateCodeOfConduct = validateCodeOfConduct;
@@ -104,7 +106,12 @@ async function validateDocFiles(rootPath) {
     const bugFixTemplateValid = await readFileAsyncSafe(path.join(rootPath, '.github', 'ISSUE_TEMPLATE', 'bug_report.md'));
     const featureTemplateValid = await readFileAsyncSafe(path.join(rootPath, '.github', 'ISSUE_TEMPLATE', 'feature_report.md'));
     if (!codeOfConductResult.valid) {
-        errors.push('The CODE-OF-CONDUCT.md is invalid or missing.');
+        if (codeOfConduct) {
+            errors.push(`The CODE-OF-CONDUCT.md is invalid: \n ${codeOfConductResult.diff}`);
+        }
+        else {
+            errors.push('The CODE-OF-CONDUCT.md is missing.');
+        }
     }
     if (!contribValid) {
         errors.push('The CONTRIBUTING.md is invalid or missing.');

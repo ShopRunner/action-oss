@@ -9,7 +9,13 @@ async function run() {
   const docResults = await validateDocFiles(process.cwd());
 
   if (!licenseResults.valid || !docResults.valid) {
-    core.setFailed([...licenseResults.errors, ...docResults.errors].join(', '));
+    core.setFailed(`Failed OSS Compliance Check
+    
+-------
+${[...licenseResults.errors, ...docResults.errors]
+  .map(err => `ERROR: ${err}`)
+  .join('\n\n')}
+    `);
   }
 }
 

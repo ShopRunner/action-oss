@@ -46,7 +46,9 @@ requirements.
 
 ## Gotchas
 
-- **CODE-OF-CONDUCT.md Sensitivity** - The linter is very sensitive, please copy the file verbatim (i.e. don't add whitespace or new lines)
+- **`CODE-OF-CONDUCT.md` Sensitivity** - The linter is very sensitive, please copy the file verbatim (i.e. don't add whitespace or new lines)
+- **Case Sensitivity** - Any file being linted MUST be spelled correctly, including the case (i.e. `PULL_REQUEST_TEMPLATE.md` vs `pull_request_template.md`) or it will error.
+- **`LICENSE` file extension** - You MUST NOT add a `.txt` or other file extension to the `LICENSE` file.
 
 ## Attribution
 
