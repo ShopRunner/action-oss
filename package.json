@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/ShopRunner/action-oss#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.9.1",
     "cli-diff": "^1.0.0"
   },
   "devDependencies": {
